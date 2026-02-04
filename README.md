@@ -15,7 +15,7 @@ From the player’s current cell, each valid direction (up/down/left/right) has:
 A random 5-letter word displayed on that tile.
 The player chooses a direction by typing the word associated with that tile.
 Typing is letter-by-letter:
-Correct → progress poop
+Correct → progress
 Incorrect → reset word progress
 When the word is fully typed → player moves into that tile.
 Reach the exit to win.
