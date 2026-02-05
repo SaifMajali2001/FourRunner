@@ -15,3 +15,24 @@ def random_words():
     # Shuffle the list of words
     random.shuffle(words)
     return words
+
+def type_word(word):
+    progress = 0
+    # call display words
+
+    while progress < len(word):
+        letter = input(f"Next letter ({progress+1}/{len(word)}): ")
+
+        # Only take first typed character
+        if not letter:
+            continue
+        letter = letter[0]
+
+        if letter == word[progress]:
+            progress += 1
+            # print("Correct!")
+        else:
+            progress = 0
+            # print("Wrong letter! Progress reset.")
+    
+    # call move function
