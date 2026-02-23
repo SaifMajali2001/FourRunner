@@ -13,3 +13,17 @@ def loadAssests():
     }
 
     return assets
+
+    def drawMaze(screen, maze, assets):
+
+        for row in range(len(maze)):
+            for col in range(len(maze[0])):
+
+                tile = maze[row][column]
+                x = col * tileSize
+                y = row * tileSize
+
+                if tile == 1:
+                    screen.blit(assets["wall"], (x,y))
+                else:
+                    screenblit(assets["floor"], (x,y))
