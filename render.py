@@ -8,9 +8,9 @@ def loadAssets():
     assets = {
         "verticalWall" : pygame.image.load("assets/verticalWall.png"),
         "horizontalWall" : pygame.image.load("assets/horizontalWall.png"),
-         "floor" : pygame.image.load("assets/floor.png"),
-          "player" : pygame.image.load("assets/player.png"),
-           "exit" : pygame.image.load("assets/player.png") 
+        "floor" : pygame.image.load("assets/floor.png"),
+        "player" : pygame.image.load("assets/player.png"),
+        "exit" : pygame.image.load("assets/exit.png") 
     }
 
     return assets
@@ -43,14 +43,22 @@ def drawMaze(screen, maze, assets):
             else:
                 screen.blit(assets["horizontalWall"], (x,y))
 
-    def drawPlayer(screen, playerPOS, assets):
+def drawPlayer(screen, playerPOS, assets):
 
-        row, col = playerPOS
+    row, col = playerPOS
 
-        x = row * tileSize
-        y = col * tileSize
+    x = row * tileSize
+    y = col * tileSize
 
-        screen.blit(["player"], (x,y))
+    screen.blit(assets["player"], (x,y))
+
+def drawExit(screen, exitPOS, assets):
+    row, col = exitPOS
+
+    x = row * tileSize
+    y = col * tileSize
+    screen.blit(assets["exit"], (x,y))
+
 
     
 
