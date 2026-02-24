@@ -42,4 +42,15 @@ def drawMaze(screen, maze, assets):
                 screen.blit(assets["verticalWall"], (x,y))
             else:
                 screen.blit(assets["horizontalWall"], (x,y))
-            
+
+    def drawPlayer(screen, playerPOS, assets):
+
+        row, col = playerPOS
+
+        x = row * tileSize
+        y = col * tileSize
+
+        screen.blit(["player"], (x,y))
+
+    
+
