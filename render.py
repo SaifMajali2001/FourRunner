@@ -4,12 +4,12 @@ tileSize = 32
 
 def loadAssets():
 
-    # I still have to slice the assets so nothing will render as of now  
+    
     assets = {
-        "verticalWall" : pygame.image.load("assets/verticalWall.png"),
-        "horizontalWall" : pygame.image.load("assets/horizontalWall.png"),
+        "verticalWall" : pygame.image.load("assets/verticalWall2.png"),
+        "horizontalWall" : pygame.image.load("assets/horizontalWall2.png"),
         "floor" : pygame.image.load("assets/floor.png"),
-        "player" : pygame.image.load("assets/player.png"),
+        "player" : pygame.image.load("assets/player2.png"),
         "exit" : pygame.image.load("assets/exit.png") 
     }
 
@@ -30,6 +30,8 @@ def drawMaze(screen, maze, assets):
             if tile == 0:
                 screen.blit(assets["floor"], (x,y))
                 continue
+
+            # requires us to use ASCII when actually generating the randomized maze
 
             up = row > 0 and maze[row-1][col] == 1
             down = row < row-1 and maze[row+1][col] == 1
