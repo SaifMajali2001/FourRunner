@@ -1,6 +1,5 @@
 # FourRunner
 Maze typeracer like game
-
 Team name: FourRunner
 
 Names: Emily Tinajero, Saif Majali, Yu Ting Keung, Nathan Choi
