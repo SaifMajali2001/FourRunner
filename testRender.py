@@ -1,5 +1,5 @@
 import pygame
-from render import loadAssets, drawMaze, drawPlayer, drawExit
+from render import Render
 
 pygame.init()
 
@@ -7,7 +7,7 @@ screen = pygame.display.set_mode((640,640))
 
 pygame.display.set_caption("Render Test")
 
-assets = loadAssets()
+renderer = Render()
 
 maze = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -40,9 +40,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        drawMaze(screen, maze, assets)
-        drawPlayer(screen, playerPOS, assets)
-        drawExit(screen, exitPOS, assets)
+        renderer.drawMaze(screen,maze)
+        renderer.drawPlayer(screen, playerPOS)
+        renderer.drawExit(screen, exitPOS)
         pygame.display.flip()
 
 pygame.quit()

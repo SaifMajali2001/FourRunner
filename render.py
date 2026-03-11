@@ -2,64 +2,64 @@ import pygame
 
 tileSize = 32
 
-def loadAssets():
 
-    
-    assets = {
-        "verticalWall" : pygame.image.load("assets/verticalWall2.png"),
-        "horizontalWall" : pygame.image.load("assets/horizontalWall2.png"),
-        "floor" : pygame.image.load("assets/floor.png"),
-        "player" : pygame.image.load("assets/player2.png"),
-        "exit" : pygame.image.load("assets/exit.png") 
-    }
+class Render:
 
-    return assets
 
-def drawMaze(screen, maze, assets):
+    def __init__(self):
+        self.assets = {
+                "verticalWall" : pygame.image.load("assets/verticalWall2.png"),
+                "horizontalWall" : pygame.image.load("assets/horizontalWall2.png"),
+                "floor" : pygame.image.load("assets/floor.png"),
+                "player" : pygame.image.load("assets/player2.png"),
+                "exit" : pygame.image.load("assets/exit.png") 
+            }
 
-    rows = len(maze)
-    cols = len(maze[0])
+    def drawMaze(self, screen, maze):
 
-    for row in range(rows):
-        for col in range(cols):
+        rows = len(maze)
+        cols = len(maze[0])
 
-            tile = maze[row][col]
-            x = col * tileSize
-            y = row * tileSize
+        for row in range(rows):
+            for col in range(cols):
 
-            if tile == 0:
-                screen.blit(assets["floor"], (x,y))
-                continue
+                tile = maze[row][col]
+                x = col * tileSize
+                y = row * tileSize
+
+                if tile == 0:
+                    screen.blit(self.assets["floor"], (x,y))
+                    continue
 
             # requires us to use ASCII when actually generating the randomized maze
 
-            up = row > 0 and maze[row-1][col] == 1
-            down = row < row-1 and maze[row+1][col] == 1
-            left = col > 0 and maze[row][col-1] == 1
-            right = col < 0 and maze[row][col+1] == 1
+                up = row > 0 and maze[row-1][col] == 1
+                down = row < row-1 and maze[row+1][col] == 1
+                left = col > 0 and maze[row][col-1] == 1
+                right = col < 0 and maze[row][col+1] == 1
 
-            if left or right:
-                screen.blit(assets["horizontalWall"], (x,y))
-            elif up or down:
-                screen.blit(assets["verticalWall"], (x,y))
-            else:
-                screen.blit(assets["horizontalWall"], (x,y))
+                if left or right:
+                    screen.blit(self.assets["horizontalWall"], (x,y))
+                elif up or down:
+                    screen.blit(self.assets["verticalWall"], (x,y))
+                else:
+                    screen.blit(self.assets["horizontalWall"], (x,y))
 
-def drawPlayer(screen, playerPOS, assets):
+    def drawPlayer(self, screen, playerPOS):
 
-    row, col = playerPOS
+        row, col = playerPOS
 
-    x = row * tileSize
-    y = col * tileSize
+        x = row * tileSize
+        y = col * tileSize
 
-    screen.blit(assets["player"], (x,y))
+        screen.blit(self.assets["player"], (x,y))
 
-def drawExit(screen, exitPOS, assets):
-    row, col = exitPOS
+    def drawExit(self, screen, exitPOS):
+        row, col = exitPOS
 
-    x = row * tileSize
-    y = col * tileSize
-    screen.blit(assets["exit"], (x,y))
+        x = row * tileSize
+        y = col * tileSize
+        screen.blit(self.assets["exit"], (x,y))
 
 
     
