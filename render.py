@@ -5,7 +5,6 @@ tileSize = 32
 
 class Render:
 
-
     def __init__(self):
         self.assets = {
                 "verticalWall" : pygame.image.load("assets/verticalWall2.png"),
@@ -61,6 +60,18 @@ class Render:
         y = col * tileSize
         screen.blit(self.assets["exit"], (x,y))
 
+    def drawWords(self, screen, words, font):
 
+        pygame.draw.rect(screen, (20,20,20), (0, 640, 640, 80))
+
+        labels = ["up", "down", "left", "right"]
+        xPOS = [40, 200, 360, 520]
+
+        for label, x in zip(labels, xPOS):
+            if label in words:
+                text = font.render(f"{label.upper()} : {words[label]}", True, (255,255,255))
+                screen.blit(text, (x, 660))
+
+            
     
 
