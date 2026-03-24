@@ -60,18 +60,29 @@ class Render:
         y = col * tileSize
         screen.blit(self.assets["exit"], (x,y))
 
-    def drawWords(self, screen, words, font):
+    def drawWords(self, screen, words, font, selectedDir = None, progress = 0, wrong = False):
 
         pygame.draw.rect(screen, (20,20,20), (0, 640, 640, 80))
 
         labels = ["up", "down", "left", "right"]
-        xPOS = [40, 200, 360, 520]
+        xPOS = [40 , 200, 360, 520]
 
         for label, x in zip(labels, xPOS):
-            if label in words:
-                text = font.render(f"{label.upper()} : {words[label]}", True, (255,255,255))
-                screen.blit(text, (x, 660))
+            word = words[label]
+            letter_x = x
 
-            
+            for i, char in enumerate(word):
+                if label == selectedDir:
+                    if i < progress:
+                        color = (0, 255, 0)
+                    elif i == progress and wrong:
+                        color = (255, 0 ,0)
+                    else:
+                        color = (255,255,255)
+                else:
+                    color = (255,255,255)
+                
+                screen.blit(font.render(char, True, color), (letter_x, 660))
+                letter_x += font.size(char)[0] + 2
     
 
