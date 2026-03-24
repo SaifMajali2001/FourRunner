@@ -64,25 +64,20 @@ class Render:
 
         pygame.draw.rect(screen, (20,20,20), (0, 640, 640, 80))
 
-        labels = ["up", "down", "left", "right"]
-        xPOS = [40 , 200, 360, 520]
+        if selectedDir not in words:
+            return
+        
+        word = words[selectedDir]
+        letter_x = 40
 
-        for label, x in zip(labels, xPOS):
-            word = words[label]
-            letter_x = x
+        for i, char in enumerate(word):
+            if i < progress:
+                color = (0,255,0)
+            elif i == progress and wrong:
+                color = (255,0,0)
+            else:
+                color = (255,255,255)
 
-            for i, char in enumerate(word):
-                if label == selectedDir:
-                    if i < progress:
-                        color = (0, 255, 0)
-                    elif i == progress and wrong:
-                        color = (255, 0 ,0)
-                    else:
-                        color = (255,255,255)
-                else:
-                    color = (255,255,255)
-                
-                screen.blit(font.render(char, True, color), (letter_x, 660))
-                letter_x += font.size(char)[0] + 2
-    
+            screen.blit(font.render(char, True, color), (letter_x, 660))
+            letter_x += font.size(char)[0] + 2    
 
