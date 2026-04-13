@@ -1,6 +1,7 @@
 import pygame
 from render import Render
 import random
+import word
 
 pygame.init()
 
@@ -37,7 +38,7 @@ playerPOS = (1, 1)
 exitPOS = (18, 18)
 
 # Hardcoded word list for testing
-word_list = ["apple", "brave", "crane", "delta", "eagle"]
+word_list = word.random_words()[:100]
 words = {
     "up":    random.choice(word_list),
     "down":  random.choice(word_list),
