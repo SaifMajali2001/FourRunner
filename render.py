@@ -1,6 +1,6 @@
 import pygame
 
-TILE_SIZE = 48  # bigger tiles to fit words above them
+TILE_SIZE = 38  # sized to fit on 1080p screen
 
 class Render:
 
