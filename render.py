@@ -1,6 +1,6 @@
 import pygame
 
-TILE_SIZE = 38  # sized to fit on 1080p screen
+TILE_SIZE = 34  # sized to fit on 1080p screen
 
 class Render:
 
@@ -56,14 +56,13 @@ class Render:
 
     def drawWordsOnTiles(self, screen, maze, player_pos, direction_words, font, active_dir=None, progress=0, wrong=False):
         """
-        Draw each direction's word above its corresponding tile.
-        active_dir: which direction the player is currently typing
-        progress: how many letters typed correctly so far
-        wrong: whether the last letter typed was wrong
+        Draw each direction's word on its tile:
+        - up:         word above the tile
+        - down:       word below the tile (so player sprite doesn't block it)
+        - left/right: word centered on the tile
         """
         col, row = player_pos
 
-        # Map direction to the tile position it leads to
         dir_offsets = {
             "up":    (col,     row - 1),
             "down":  (col,     row + 1),
@@ -79,20 +78,28 @@ class Render:
             tile_x = tc * TILE_SIZE
             tile_y = tr * TILE_SIZE
 
-            # Draw word above the tile
-            letter_x = tile_x
-            letter_y = tile_y - font.get_height() - 2  # just above tile
+            total_width = sum(font.size(c)[0] + 1 for c in word)
+
+            if direction == "up":
+                letter_x = tile_x + (TILE_SIZE - total_width) // 2
+                letter_y = tile_y - font.get_height() - 2
+            elif direction == "down":
+                letter_x = tile_x + (TILE_SIZE - total_width) // 2
+                letter_y = tile_y + TILE_SIZE + 2
+            else:  # left or right
+                letter_x = tile_x + (TILE_SIZE - total_width) // 2
+                letter_y = tile_y + (TILE_SIZE - font.get_height()) // 2
 
             for i, char in enumerate(word):
                 if active_dir == direction:
                     if i < progress:
-                        color = (0, 255, 0)       # green - correct
+                        color = (0, 160, 0)     # green - correct
                     elif i == progress and wrong:
-                        color = (255, 0, 0)       # red - wrong letter
+                        color = (200, 0, 0)     # red - wrong letter
                     else:
-                        color = (255, 255, 255)   # white - not yet typed
+                        color = (0, 0, 0)       # black - not yet typed
                 else:
-                    color = (200, 200, 200)        # gray - inactive direction
+                    color = (0, 0, 0)           # black - inactive
 
                 char_surf = font.render(char.upper(), True, color)
                 screen.blit(char_surf, (letter_x, letter_y))
