@@ -1,38 +1,35 @@
-# word.py
-
 import random
 
-def random_words():
-    # Read words from dictionary.txt
+def load_words():
+    """Load all 5-letter words from dictionary.txt."""
     with open("dictionary.txt", "r", encoding="utf-8") as file:
         words = []
-
         for line in file:
-            clean_line = line.strip()
-            if clean_line:
-                words.append(clean_line)
-
-    # Shuffle the list of words
-    random.shuffle(words)
+            clean = line.strip()
+            if clean and len(clean) == 5:
+                words.append(clean.lower())
     return words
 
-def type_word(word):
-    progress = 0
-    # call display words
 
-    while progress < len(word):
-        letter = input(f"Next letter ({progress+1}/{len(word)}): ")
+def assign_words(directions, word_pool):
+    """
+    Given a list of directions (e.g. ['up', 'down', 'right']),
+    assign a random word to each such that no two words share the same first letter.
+    Returns a dict like {'up': 'crane', 'down': 'brave', 'right': 'gloom'}
+    """
+    assigned = {}
+    used_letters = set()
 
-        # Only take first typed character
-        if not letter:
-            continue
-        letter = letter[0]
+    # Shuffle word pool so picks are random
+    pool = word_pool.copy()
+    random.shuffle(pool)
 
-        if letter == word[progress]:
-            progress += 1
-            # print("Correct!")
-        else:
-            progress = 0
-            # print("Wrong letter! Progress reset.")
-    
-    # call move function
+    for direction in directions:
+        for word in pool:
+            if word[0] not in used_letters:
+                assigned[direction] = word
+                used_letters.add(word[0])
+                pool.remove(word)
+                break
+
+    return assigned
