@@ -1,7 +1,7 @@
 import random
 
-ROWS = 21  # must be odd
-COLS = 21  # must be odd
+ROWS = 11  # must be odd
+COLS = 11  # must be odd
 
 def generate_maze(rows, cols):
     """
@@ -9,7 +9,6 @@ def generate_maze(rows, cols):
     1 = wall, 0 = floor, 2 = exit
     Start is always (1,1), exit is always (rows-2, cols-2).
     """
-    # Start fully walled
     maze = [[1] * cols for _ in range(rows)]
 
     def carve(r, c):
@@ -18,22 +17,19 @@ def generate_maze(rows, cols):
         for dr, dc in directions:
             nr, nc = r + dr, c + dc
             if 1 <= nr < rows - 1 and 1 <= nc < cols - 1 and maze[nr][nc] == 1:
-                maze[r + dr // 2][c + dc // 2] = 0  # carve wall between
+                maze[r + dr // 2][c + dc // 2] = 0
                 maze[nr][nc] = 0
                 carve(nr, nc)
 
-    # Start carving from (1,1)
     maze[1][1] = 0
     carve(1, 1)
-
-    # Place exit
     maze[rows - 2][cols - 2] = 2
 
     return maze
 
 
 def get_neighbors(maze, position):
-    """Return a list of valid walkable neighboring tile positions (col, row)."""
+    """Return a list of (direction, (col, row)) for open neighboring tiles."""
     col, row = position
     rows = len(maze)
     cols = len(maze[0])
@@ -42,11 +38,11 @@ def get_neighbors(maze, position):
         nc, nr = col + dc, row + dr
         if 0 <= nr < rows and 0 <= nc < cols and maze[nr][nc] != 1:
             neighbors.append((direction, (nc, nr)))
-    return neighbors  # list of (direction, position)
+    return neighbors
 
 
 def move_player(maze, player_pos, new_position):
-    """Move player if new_position is a valid neighbor. Returns new position or old if invalid."""
+    """Move player if new_position is a valid neighbor."""
     valid = [pos for _, pos in get_neighbors(maze, player_pos)]
     if new_position in valid:
         return new_position
